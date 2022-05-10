@@ -1,0 +1,175 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)
+// swift-module-flags: -target arm64-apple-ios12.3 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name PayFortSDK
+import CommonCrypto
+import Foundation
+import Network
+import PassKit
+@_exported import PayFortSDK
+import Swift
+import SystemConfiguration
+import UIKit
+import WebKit
+import _Concurrency
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class PayFortView : UIKit.UIView {
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var CardNumberTxt: PFKJVFloatLabeledTextField!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var cardNumberErrorlbl: UIKit.UILabel!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var CardNameTxt: PFKJVFloatLabeledTextField!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var CVCNumberTxt: PFKJVFloatLabeledTextField!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var cVCNumberErrorlbl: UIKit.UILabel!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var ExpDateTxt: PFKJVFloatLabeledTextField!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var expDateErrorlbl: UIKit.UILabel!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var titleView: UIKit.UIView!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var titleLbl: UIKit.UILabel!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var BackBtn: UIKit.UIButton!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var headerHeight: UIKit.NSLayoutConstraint!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var PriceLbl: UIKit.UILabel!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var savedCardSwitch: UIKit.UISwitch!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var saveCardLbl: UIKit.UILabel!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var imageCard: UIKit.UIImageView!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var SaveCardView: UIKit.UIView!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var paymentBtn: UIKit.UIButton!
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class ExpiryDateView : CardContainer {
+  @objc deinit
+}
+public enum PayFortError : Swift.Error {
+  case noInternet(Swift.Error?)
+  case processingError(ErrorData?)
+  case serverError(ErrorData?)
+  case validateApiError(ValidateResponse)
+  case cancelTransaction([Swift.String : Swift.String]?)
+  public var errorDescription: Swift.String {
+    get
+  }
+  public var errorCode: Swift.Int {
+    get
+  }
+}
+public enum CardItemError : Swift.Error {
+  case cardNumberLengthError
+  case amexCardNumberLengthError
+  case cardNumberError
+  case cvcLengthError
+  case amexCvcLengthError
+  case cvcFormatError
+  case expiryMonthError
+  case expiryYearError
+  case expiryDateError
+  case cardHolderNameError
+  case unsupportedCardError
+  case cardNotMatchPaymentOption
+  case feildsIsEmptyError
+  public var errorDescription: Swift.String {
+    get
+  }
+  public var errorCode: Swift.Int {
+    get
+  }
+  public static func == (a: CardItemError, b: CardItemError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public typealias transactionSuccess = (_ requestDic: [Swift.String : Swift.String], _ responeDic: [Swift.String : Swift.String]) -> Swift.Void
+public typealias validateSuccess = (_ requestDic: [Swift.String : Swift.String]) -> Swift.Void
+public typealias transactionFaild = (_ requestDic: [Swift.String : Swift.String], _ responeDic: [Swift.String : Swift.String], _ message: Swift.String) -> Swift.Void
+public typealias showLoading = () -> Swift.Void
+public typealias transactionCanceled = (_ requestDic: [Swift.String : Swift.String], _ responeDic: [Swift.String : Swift.String]) -> Swift.Void
+public enum ThreeDSResult {
+  case onComplete(_: [Swift.String : Swift.String]?)
+  case backButtonStatus(_: Swift.Bool)
+  case onError(PayFortError)
+  case hideLoading(Swift.Void)
+}
+extension UIKit.UIDevice {
+  @_Concurrency.MainActor(unsafe) public static let modelName: Swift.String
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class HolderNameView : CardContainer {
+  @objc deinit
+}
+public typealias ErrorData = (code: Swift.Int, message: Swift.String)
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class PayButton : UIKit.UIButton {
+  @objc @_Concurrency.MainActor(unsafe) public func setup(with request: [Swift.String : Swift.String], enviroment: PayFortEnviroment, payButtonBuilder: PayComponents, viewController: UIKit.UIViewController, showLoading: @escaping showLoading, success: @escaping transactionSuccess, faild: @escaping transactionFaild)
+  @objc @_Concurrency.MainActor(unsafe) public func setup(with request: [Swift.String : Swift.String], enviroment: PayFortEnviroment, viewController: UIKit.UIViewController, showLoading: @escaping showLoading, success: @escaping transactionSuccess, faild: @escaping transactionFaild)
+  @objc @_Concurrency.MainActor(unsafe) public func updateRequest(request: [Swift.String : Swift.String])
+  @objc @_Concurrency.MainActor(unsafe) public func isRememberEnabled(_ enabled: Swift.Bool)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class CardContainer : UIKit.UIView {
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var errorLabel: UIKit.UILabel! {
+    @objc get
+    @objc set
+  }
+  @_Concurrency.MainActor(unsafe) public var property: Property {
+    get
+    set
+  }
+  @objc override dynamic public func awakeFromNib()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension CardContainer : UIKit.UITextFieldDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func textField(_ textField: UIKit.UITextField, shouldChangeCharactersIn range: Foundation.NSRange, replacementString string: Swift.String) -> Swift.Bool
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func textFieldDidEndEditing(_ textField: UIKit.UITextField, reason: UIKit.UITextField.DidEndEditingReason)
+}
+@objc public class PayComponents : ObjectiveC.NSObject {
+  public init(cardNumberView: CardNumberView, expiryDateView: ExpiryDateView, cvcNumberView: CVCNumberView, holderNameView: HolderNameView, rememberMe: Swift.Bool, language: Swift.String)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class CardNumberView : CardContainer {
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class CVCNumberView : CardContainer {
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers final public class Property : ObjectiveC.NSObject {
+  @objc final public var textColor: UIKit.UIColor?
+  @objc final public var fontStyle: UIKit.UIFont?
+  @objc final public var backgroundColor: UIKit.UIColor?
+  @objc final public var errorText: Swift.String?
+  @objc final public var errorFontStyle: UIKit.UIFont?
+  @objc final public var errorTextColor: UIKit.UIColor?
+  @objc final public var titleText: Swift.String?
+  @objc final public var titleTextColor: UIKit.UIColor?
+  @objc final public var titleErrorTextColor: UIKit.UIColor?
+  @objc final public var titleFontStyle: UIKit.UIFont?
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum PayFortEnviroment : Swift.Int {
+  case sandBox
+  case production
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc @_Concurrency.MainActor(unsafe) open class PayFortController : UIKit.UIViewController {
+  @objc @_Concurrency.MainActor(unsafe) public var isShowResponsePage: Swift.Bool
+  @objc @_Concurrency.MainActor(unsafe) public var hideLoading: Swift.Bool
+  @objc @_Concurrency.MainActor(unsafe) public var presentAsDefault: Swift.Bool
+  @objc @_Concurrency.MainActor(unsafe) public init(enviroment: PayFortEnviroment)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLoad()
+  @objc @_Concurrency.MainActor(unsafe) public func getUDID() -> Swift.String
+  @objc @_Concurrency.MainActor(unsafe) public func callValidateAPI(with request: [Swift.String : Swift.String], showLoading: @escaping showLoading, success: @escaping validateSuccess, faild: @escaping transactionFaild)
+  @objc @_Concurrency.MainActor(unsafe) public func callPayFort(withRequest: [Swift.String : Swift.String], currentViewController: UIKit.UIViewController, success: @escaping transactionSuccess, canceled: @escaping transactionCanceled, faild: @escaping transactionFaild)
+  @objc @_Concurrency.MainActor(unsafe) public func callPayFortForApplePay(withRequest: [Swift.String : Swift.String], applePayPayment: PassKit.PKPayment, currentViewController: UIKit.UIViewController, success: @escaping transactionSuccess, faild: @escaping transactionFaild)
+  @objc @_Concurrency.MainActor(unsafe) public func setPayFortCustomViewNib(_ viewNib: Swift.String)
+  @objc deinit
+}
+public struct ValidateResponse : Swift.Decodable {
+  public init(from decoder: Swift.Decoder) throws
+}
+extension CardItemError : Swift.Equatable {}
+extension CardItemError : Swift.Hashable {}
+extension PayFortEnviroment : Swift.Equatable {}
+extension PayFortEnviroment : Swift.Hashable {}
+extension PayFortEnviroment : Swift.RawRepresentable {}

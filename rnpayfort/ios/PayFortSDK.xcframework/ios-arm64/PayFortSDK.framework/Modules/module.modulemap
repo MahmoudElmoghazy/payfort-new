@@ -1,0 +1,11 @@
+framework module PayFortSDK {
+  umbrella header "PayFortSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module PayFortSDK.Swift {
+    header "PayFortSDK-Swift.h"
+    requires objc
+}
