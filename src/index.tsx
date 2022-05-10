@@ -9,14 +9,29 @@ const LINKING_ERROR =
 const Payfort = NativeModules.Payfort
   ? NativeModules.Payfort
   : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
+    {},
+    {
+      get() {
+        throw new Error(LINKING_ERROR);
+      },
+    }
+  );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return Payfort.multiply(a, b);
+
+interface Props {
+  isLive: boolean;
+  device_fingerprint: string;
+  command: "PURCHASE" | "AUTHORIZATION",
+  currency: string;
+  amount: string;
+  sdk_token: string;
+  customer_email: string;
+  merchant_reference: string;
+  customer_ip: string;
+  language: string;
+  merchant_extra?: string;
+}
+
+export function Pay(data: Props, successCallback: () => void, failCallback: () => void) {
+  return Payfort.Pay(data, successCallback, failCallback);
 }
