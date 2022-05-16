@@ -7,7 +7,7 @@
  */
 
 import React, { useEffect } from 'react';
-import type {Node} from 'react';
+import type { Node } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -16,7 +16,8 @@ import {
   Text,
   useColorScheme,
   View,
-  NativeModules
+  NativeModules,
+  Platform
 } from 'react-native';
 
 import {
@@ -27,7 +28,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const Section = ({children, title}): Node => {
+const Section = ({ children, title }): Node => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -65,27 +66,57 @@ const App: () => Node = () => {
 
     const Payfort = NativeModules.Payfort;
 
-    Payfort.getDeviceId((info) => {
-      console.log(info)
-    })
-    
-    Payfort.DirectPay(JSON.stringify({
+    console.log({ NativeModules });
+
+    // Payfort.getDeviceId((info) => {
+    //   console.log(info)
+    // })
+
+    const params = {
       isLive: false,
       // device_fingerprint: "1147646C-D317-4A2C-A770-67F06BE8ADB9",
       command: "PURCHASE",
       currency: "SAR",
       amount: "1000",
-      sdk_token: "bfb51b1f837c43b4890ca8ba9abc0b4c",
+      sdk_token: "d153c582f95f4b0e8a950e41050aeda0",
       customer_email: "mamoghazii@gmail.com",
-      merchant_reference: "203",
+      merchant_reference: "9485",
       customer_ip: "192.168.1.4",
       language: "en",
       token_name: "payfort"
-    }), (result) => {
-      console.log(result)
-    }, (error) => {
-      console.log(error)
-    })
+    }
+
+    const data = Platform.select({
+      ios: params,
+      android: JSON.stringify(params)
+    });
+
+
+    setTimeout(() => {
+      Payfort.Pay(data, (result) => {
+        console.log({ result })
+      }, (error) => {
+        console.log({ error })
+      });
+    }, 4000)
+
+    // Payfort.DirectPay(JSON.stringify({
+    //   isLive: false,
+    //   // device_fingerprint: "1147646C-D317-4A2C-A770-67F06BE8ADB9",
+    //   command: "PURCHASE",
+    //   currency: "SAR",
+    //   amount: "1000",
+    //   sdk_token: "bfb51b1f837c43b4890ca8ba9abc0b4c",
+    //   customer_email: "mamoghazii@gmail.com",
+    //   merchant_reference: "203",
+    //   customer_ip: "192.168.1.4",
+    //   language: "en",
+    //   token_name: "payfort"
+    // }), (result) => {
+    //   console.log(result)
+    // }, (error) => {
+    //   console.log(error)
+    // })
   }, [])
 
   return (

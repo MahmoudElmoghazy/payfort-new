@@ -1,6 +1,6 @@
 #import "Payfort.h"
 
-@implementation PayFort
+@implementation Payfort
 
 RCT_EXPORT_MODULE()
 

@@ -53,5 +53,7 @@ allprojects {
         }
         google()
         maven { url 'https://www.jitpack.io' }
+
+        maven { url "https://android-sdk.payfort.com" }
     }
 }
