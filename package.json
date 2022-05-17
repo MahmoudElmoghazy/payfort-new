@@ -1,7 +1,7 @@
 {
-  "name": "react-native-payfort",
-  "version": "0.1.0",
-  "description": "React native payfort",
+  "name": "@~mahmoud.moghazy/react-native-payfort",
+  "version": "1.0.0",
+  "description": "React Native PayFort SDK for payment.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -33,10 +33,17 @@
   },
   "keywords": [
     "react-native",
-    "ios",
-    "android"
+    "React",
+    "ReactNativePayFortSDK",
+    "RNPayFortSDK",
+    "PayFort SDK",
+    "PayFort",
+    "Pay"
   ],
-  "repository": "https://github.com/MahmoudElmoghazy/react-native-payfort",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MahmoudElmoghazy/react-native-payfort.git"
+  },
   "author": "Mahmoud El-moghazy <mahmoudahmedmoghazy@gmail.com> (https://github.com/MahmoudElmoghazy)",
   "license": "MIT",
   "bugs": {

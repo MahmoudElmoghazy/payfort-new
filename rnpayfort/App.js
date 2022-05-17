@@ -68,9 +68,9 @@ const App: () => Node = () => {
 
     console.log({ NativeModules });
 
-    // Payfort.getDeviceId((info) => {
-    //   console.log(info)
-    // })
+    Payfort.getDeviceId((info) => {
+      console.log(info)
+    })
 
     const params = {
       isLive: false,
@@ -86,37 +86,14 @@ const App: () => Node = () => {
       token_name: "payfort"
     }
 
-    const data = Platform.select({
-      ios: params,
-      android: JSON.stringify(params)
-    });
-
-
     setTimeout(() => {
-      Payfort.Pay(data, (result) => {
+      Payfort.Pay(JSON.stringify(params), (result) => {
         console.log({ result })
       }, (error) => {
         console.log({ error })
       });
     }, 4000)
 
-    // Payfort.DirectPay(JSON.stringify({
-    //   isLive: false,
-    //   // device_fingerprint: "1147646C-D317-4A2C-A770-67F06BE8ADB9",
-    //   command: "PURCHASE",
-    //   currency: "SAR",
-    //   amount: "1000",
-    //   sdk_token: "bfb51b1f837c43b4890ca8ba9abc0b4c",
-    //   customer_email: "mamoghazii@gmail.com",
-    //   merchant_reference: "203",
-    //   customer_ip: "192.168.1.4",
-    //   language: "en",
-    //   token_name: "payfort"
-    // }), (result) => {
-    //   console.log(result)
-    // }, (error) => {
-    //   console.log(error)
-    // })
   }, [])
 
   return (
