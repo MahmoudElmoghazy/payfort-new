@@ -90,4 +90,65 @@ RCT_EXPORT_METHOD(getDeviceId : (RCTResponseSenderBlock)successCallback) {
   successCallback(@[ PayFort.getUDID ]);
 }
 
+RCT_EXPORT_METHOD(PayWithApplePay
+                  : (NSString *)strData successCallback
+                  : (RCTResponseSenderBlock)successCallback errorCallback
+                  : (RCTResponseSenderBlock)errorCallback) {
+            
+        NSDictionary *input = [self convertToDictonary:strData];
+        NSNumber *isLive = [input objectForKey:@"isLive"];
+
+        NSNumber *command = [input objectForKey:@"command"];
+        NSNumber *sdk_token = [input objectForKey:@"sdk_token"];
+        NSNumber *merchant_reference = [input objectForKey:@"merchant_reference"];
+        NSNumber *merchant_extra = [input objectForKey:@"merchant_extra"];
+        NSNumber *customer_email = [input objectForKey:@"customer_email"];
+        NSNumber *currency = [input objectForKey:@"currency"];
+        NSNumber *language = [input objectForKey:@"language"];
+        NSNumber *amount = [input objectForKey:@"amount"];
+        NSNumber *device_fingerprint = [input objectForKey:@"device_fingerprint"];
+        NSNumber *customer_ip = [input objectForKey:@"customer_ip"];
+        PKPayment *applePayPayment = [input objectForKey:@"apple_payment"];
+
+        PayFortController *PayFort = [[PayFortController alloc]
+            initWithEnviroment:[isLive boolValue] ? PayFortEnviromentProduction
+                                                  : PayFortEnviromentSandBox];
+        
+        NSMutableDictionary *request = [[NSMutableDictionary alloc]init];
+        [request setValue:command forKey:@"command"];
+        [request setValue:sdk_token forKey:@"sdk_token"];
+        [request setValue:merchant_reference forKey:@"merchant_reference"];
+        [request setValue:merchant_extra forKey:@"merchant_extra"];
+        [request setValue:customer_email forKey:@"customer_email"];
+        [request setValue:language forKey:@"language"];
+        [request setValue:currency forKey:@"currency"];
+        [request setValue:amount forKey:@"amount"];
+        [request setValue:customer_ip forKey:@"customer_ip"];
+        [request setValue:device_fingerprint forKey:@"device_fingerprint"];
+        [request setValue:@"APPLE_PAY" forKey:@"digital_wallet"];
+
+        NSLog(@"request-applePay%@", request);
+        
+        UIViewController *nav =  (UIViewController*)[UIApplication sharedApplication].delegate.window.rootViewController;
+   
+        [PayFort callPayFortForApplePayWithRequest:request
+                    applePayPayment:applePayPayment
+              currentViewController:nav
+                    success:^(NSDictionary *requestDic, NSDictionary *responeDic) {
+                        NSLog(@"''''''''''responeDic=%@",responeDic);
+                        //                                NSLog(@"message=%@",message);
+                        successCallback(@[ responeDic ]);
+
+                    }
+                      faild:^(NSDictionary *requestDic, NSDictionary *responeDic, NSString *message) {
+                        NSLog(@"''''''''''responeDic=%@",responeDic);
+            
+                        errorCallback(@[ responeDic ]);
+                }
+
+            ];
+}
+
+
+
 @end
