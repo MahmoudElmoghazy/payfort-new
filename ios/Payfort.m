@@ -30,7 +30,6 @@ RCT_EXPORT_METHOD(Pay
   NSNumber *device_fingerprint = [input objectForKey:@"device_fingerprint"];
   NSNumber *customer_ip = [input objectForKey:@"customer_ip"];
   NSNumber *token_name = [input objectForKey:@"token_name"];
-  NSNumber *card_security_code = [input objectForKey:@"card_security_code"];
 
   PayFortController *PayFort = [[PayFortController alloc]
       initWithEnviroment:[isLive boolValue] ? PayFortEnviromentProduction
@@ -50,7 +49,6 @@ RCT_EXPORT_METHOD(Pay
   [request setValue:customer_ip forKey:@"customer_ip"];
   [request setValue:device_fingerprint forKey:@"device_fingerprint"];
   [request setValue:token_name forKey:@"token_name"];
-  [request setValue:card_security_code forKey:@"card_security_code"];
 
   PayFort.isShowResponsePage = true;
   PayFort.presentAsDefault = true;
