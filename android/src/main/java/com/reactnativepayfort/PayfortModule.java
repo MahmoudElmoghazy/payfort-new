@@ -76,7 +76,7 @@ public class PayfortModule extends ReactContextBaseJavaModule
         for (Iterator<String> it = jsonObject.keys(); it.hasNext(); ) {
           String key = it.next();
 
-          if(!key.equals("isLive") && !key.equals("token_name")) {
+          if(!key.equals("isLive")) {
             map.put(key, jsonObject.get(key).toString());
           }
         }
