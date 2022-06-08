@@ -19,17 +19,17 @@ RCT_EXPORT_METHOD(Pay
   NSDictionary *input = [self convertToDictonary:strData];
   NSNumber *isLive = [input objectForKey:@"isLive"];
 
-  NSNumber *command = [input objectForKey:@"command"];
-  NSNumber *sdk_token = [input objectForKey:@"sdk_token"];
-  NSNumber *merchant_reference = [input objectForKey:@"merchant_reference"];
-  NSNumber *merchant_extra = [input objectForKey:@"merchant_extra"];
-  NSNumber *customer_email = [input objectForKey:@"customer_email"];
-  NSNumber *currency = [input objectForKey:@"currency"];
-  NSNumber *language = [input objectForKey:@"language"];
-  NSNumber *amount = [input objectForKey:@"amount"];
-  NSNumber *device_fingerprint = [input objectForKey:@"device_fingerprint"];
-  NSNumber *customer_ip = [input objectForKey:@"customer_ip"];
-  NSNumber *token_name = [input objectForKey:@"token_name"];
+  NSString *command = [input objectForKey:@"command"];
+  NSString *sdk_token = [input objectForKey:@"sdk_token"];
+  NSString *merchant_reference = [input objectForKey:@"merchant_reference"];
+  NSString *merchant_extra = [input objectForKey:@"merchant_extra"];
+  NSString *customer_email = [input objectForKey:@"customer_email"];
+  NSString *currency = [input objectForKey:@"currency"];
+  NSString *language = [input objectForKey:@"language"];
+  NSString *amount = [input objectForKey:@"amount"];
+  NSString *device_fingerprint = [input objectForKey:@"device_fingerprint"];
+  NSString *customer_ip = [input objectForKey:@"customer_ip"];
+  NSString *token_name = [input objectForKey:@"token_name"];
 
   PayFortController *PayFort = [[PayFortController alloc]
       initWithEnviroment:[isLive boolValue] ? PayFortEnviromentProduction
@@ -48,7 +48,10 @@ RCT_EXPORT_METHOD(Pay
   [request setValue:amount forKey:@"amount"];
   [request setValue:customer_ip forKey:@"customer_ip"];
   [request setValue:device_fingerprint forKey:@"device_fingerprint"];
-  [request setValue:token_name forKey:@"token_name"];
+
+  if(token_name != nil) {
+    [request setValue:token_name forKey:@"token_name"];
+  }
 
   PayFort.isShowResponsePage = true;
   PayFort.presentAsDefault = true;
