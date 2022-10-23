@@ -125,10 +125,13 @@ public class PayfortModule extends ReactContextBaseJavaModule
   }
 
   @Override
-  public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-//    super.onActivityResult(requestCode, resultCode, data);
-    fortCallback.onActivityResult(requestCode, resultCode, data);
-  }
+    public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+    try {
+        fortCallback.onActivityResult(requestCode, resultCode, data);
+    }  catch (Exception e) {
+            Log.d("Exception", String.valueOf(e));
+          }
+      }
 
   @Override
   public void onNewIntent(Intent intent) {
