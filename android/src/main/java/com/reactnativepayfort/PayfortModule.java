@@ -61,10 +61,10 @@ public class PayfortModule extends ReactContextBaseJavaModule
 
 
     @ReactMethod
-    public void getDeviceId(Callback successCallback){
+      public void getDeviceId(Callback successCallback){
         try {
           successCallback.invoke(FortSdk.getDeviceId(getCurrentActivity()));
-        catch (Exception e) {
+        } catch (Exception e) {
           Log.d("Exception", String.valueOf(e));
         }
     }
