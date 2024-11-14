@@ -23,6 +23,7 @@ RCT_EXPORT_METHOD(Pay
   NSString *sdk_token = [input objectForKey:@"sdk_token"];
   NSString *merchant_reference = [input objectForKey:@"merchant_reference"];
   NSString *merchant_extra = [input objectForKey:@"merchant_extra"];
+  NSString *merchant_extra1 = [input objectForKey:@"merchant_extra1"];
   NSString *customer_email = [input objectForKey:@"customer_email"];
   NSString *currency = [input objectForKey:@"currency"];
   NSString *language = [input objectForKey:@"language"];
@@ -42,6 +43,7 @@ RCT_EXPORT_METHOD(Pay
   [request setValue:sdk_token forKey:@"sdk_token"];
   [request setValue:merchant_reference forKey:@"merchant_reference"];
   [request setValue:merchant_extra forKey:@"merchant_extra"];
+  [request setValue:merchant_extra1 forKey:@"merchant_extra1"];
   [request setValue:customer_email forKey:@"customer_email"];
   [request setValue:language forKey:@"language"];
   [request setValue:currency forKey:@"currency"];
@@ -201,6 +203,7 @@ RCT_EXPORT_METHOD(PayWithApplePay:(NSString *)strData successCallback:(RCTRespon
             NSNumber *sdk_token = [applePayRequestDict objectForKey:@"sdk_token"];
             NSNumber *merchant_reference = [applePayRequestDict objectForKey:@"merchant_reference"];
             NSNumber *merchant_extra = [applePayRequestDict objectForKey:@"merchant_extra"];
+            NSNumber *merchant_extra1 = [applePayRequestDict objectForKey:@"merchant_extra1"];
             NSNumber *customer_email = [applePayRequestDict objectForKey:@"customer_email"];
             NSNumber *currency = [applePayRequestDict objectForKey:@"currency"];
             NSNumber *language = [applePayRequestDict objectForKey:@"language"];
@@ -217,6 +220,7 @@ RCT_EXPORT_METHOD(PayWithApplePay:(NSString *)strData successCallback:(RCTRespon
             [request setValue:sdk_token forKey:@"sdk_token"];
             [request setValue:merchant_reference forKey:@"merchant_reference"];
             [request setValue:merchant_extra forKey:@"merchant_extra"];
+            [request setValue:merchant_extra1 forKey:@"merchant_extra1"];
             [request setValue:customer_email forKey:@"customer_email"];
             [request setValue:language forKey:@"language"];
             [request setValue:currency forKey:@"currency"];
